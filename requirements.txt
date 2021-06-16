@@ -1,17 +1,4 @@
 <<<<<<< HEAD
-Flask==1.1.1
-gunicorn==19.9.0
-itsdangerous==1.1.0
-Jinja2==2.10.1
-MarkupSafe==1.1.1
-Werkzeug>=1.0.1
-numpy>=1.9.2
-scipy>=0.15.1
-scikit-learn>=0.18
-matplotlib>=1.4.3
-pandas>=0.19
-=======
-<<<<<<< HEAD
 Flask>=1.1.1
 gunicorn>=19.9.0
 itsdangerous>=1.1.0
@@ -32,4 +19,3 @@ numpy>=1.9.2
 matplotlib>=1.4.3
 pandas>=0.19
 >>>>>>> 919b8903cc0778c50eb17dd0aa03bf42d473c19f
->>>>>>> 80eb770f0c90b45a0b868f7ae334d3f93558a1e7
