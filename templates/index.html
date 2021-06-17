@@ -1,12 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Assignment 2</title>
-</head>
-    <body>
-    <h2 style="color:#782ffb; text-align:center">Welcome to facial emotion detection system.</h2>
-        {% for post in posts %}     
-        <h3> {{post.name }}</h1>
-        {% endfor %}
-    </body>
-</html>
+{% extends "base.html" %}
+{% block title %} Object Detection using VGG16: Deep Learning {% endblock %}
+{% block content %}
+ <div class="container">
+    <h3 class="text-dark text-center p-5 pb-4" >Object detection using vgg16 deep learning model.</h3>
+   
+   <div class="container">
+         
+       <div class="container p-3" style="background:#78374a">
+         <div class="container pb-2">
+           <h4 class="text-white">Upload a video</h4>
+       </div>
+       <form class="d-flex"> 
+           <input type="file" class="form-control form-control-sm w-25">
+           <button type="submit" style="background:#ead5f2; padding-left:20px; padding-right:20px; margin-left:20px" class="btn btn-sm text-dark">Sumbit</button>
+       </form>
+   </div>
+   
+      <div style="background:#e6d3dd">
+           <h4 class="p-3">Search for objects in the videos </h4>
+           <div class="p-4 w-50 d-flex">
+                <input type="text" class="form-control form-control-sm" placeholder="Search for objects in the videos. ... ">
+                <button type="submit" style="background:#78374a; padding-left:20px; padding-right:20px; margin-left:20px" class="btn btn-sm text-white">Search</button>
+           </div>
+      </div>
+       
+   </div>
+   
+  <div>
+    
+{% endblock %}
+
