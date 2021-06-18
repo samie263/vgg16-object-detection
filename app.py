@@ -14,11 +14,12 @@ from model import search_frames, split_to_frames
 UPLOAD_FOLDER = 'static/video_frames'
 import os
 app = Flask(__name__)
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+@app.route('/')
 def index():
     return render_template('index.html')
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_video():
     if request.method == 'POST':
@@ -36,4 +37,4 @@ def search():
 		
 if __name__ == '__main__':
     app.run(host='localhost', debug=True)
-    app.run(host='localhost', debug=True)
+
