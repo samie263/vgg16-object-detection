@@ -51,5 +51,5 @@ def search():
     return render_template('search.html', frames_list=objects, search_txt=search_text)
 		
 if __name__ == '__main__':
-    app.run(port=5002, debug=True)
+    app.run(host='localhost', port=5002, debug=True)
 
