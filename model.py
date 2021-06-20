@@ -7,8 +7,7 @@ import cv2
 import os
 import json
 
-#VGG16 = load_model('model.h5')
-VGG16_Model = VGG16(weights='imagenet', include_top=True, input_shape=None, input_tensor=None)
+VGG16_Model = load_model('model.h5')
 VIDEO_FRAMES = glob("static/video_frames/*.jpg")
 
 distinct_objects = set()

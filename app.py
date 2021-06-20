@@ -24,7 +24,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/', methods=["GET"])
 def index():
     with open('detected_objects.txt', 'r') as f:
-        obj_nam = json.loads(f.read())
+        obj_nam = set(json.loads(f.read()))
     return render_template('index.html', obj_names=obj_nam)
 
 @app.route('/', methods=["POST"])
@@ -43,7 +43,6 @@ def upload():
         
            
 @app.route('/search', methods=['GET', 'POST'])
-
 def search():
     # getting input with name = fname in HTML form
     search_text = request.form.get("searchInput")
