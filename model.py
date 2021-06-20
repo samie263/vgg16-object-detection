@@ -1,5 +1,5 @@
 from  keras.models import load_model
-from keras.applications.vgg16 import  preprocess_input, decode_predictions
+from keras.applications.vgg16 import  preprocess_input, decode_predictions, VGG16
 from keras.preprocessing.image import load_img, img_to_array
 import numpy as np
 from glob import glob
@@ -7,7 +7,8 @@ import cv2
 import os
 import json
 
-VGG16 = load_model('model.h5')
+#VGG16 = load_model('model.h5')
+VGG16_Model = VGG16(weights='imagenet', include_top=True, input_shape=None, input_tensor=None)
 VIDEO_FRAMES = glob("static/video_frames/*.jpg")
 
 distinct_objects = set()
@@ -39,7 +40,7 @@ def feeding_frames_to_vgg16(frame_list):
         image = img_to_array(image)
         image = np.expand_dims(image, axis=0)
         image = preprocess_input(image)
-        y_pred = VGG16.predict(image)
+        y_pred = VGG16_Model.predict(image)
         label = decode_predictions(y_pred)
         features.append(label[0][1][1])
         #distinct_objects.add(label[0][1][1])
