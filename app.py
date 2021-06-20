@@ -4,37 +4,53 @@ Created on Wed Jun 16 14:58:54 2021
 
 @author: samuel
 """
-import numpy as np
-from flask import Flask, flash, request, redirect, url_for, render_template
-from werkzeug.utils import secure_filename
-from glob import glob
-import pickle
-from model import search_frames, split_to_frames
 
-UPLOAD_FOLDER = 'static/video_frames'
+from flask import Flask, render_template, request, flash, redirect
+from werkzeug.utils import secure_filename
+from model import search_frames, video_to_frames
 import os
+import json
+
+UPLOAD_FOLDER = 'uploads/'
+
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'memcached'
+app.config['SECRET_KEY'] = 'super secret key'
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_video():
+
+@app.route('/', methods=["GET"])
+def index():
+    with open('detected_objects.txt', 'r') as f:
+        obj_nam = json.loads(f.read())
+    return render_template('index.html', obj_names=obj_nam)
+
+@app.route('/', methods=["POST"])
+def upload():
     if request.method == 'POST':
-      f = request.files['videoInput']
-      f.save(secure_filename(f.filename))
-      
+        file = request.files['videoInput']
+        filename = secure_filename(file.filename)
+        #os.mkdir('uploads', 777)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        video_to_frames(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #os.remove("uploads")
+        flash('File(s) successfully uploaded')
+        return redirect('/')
+    
+
+        
+           
 @app.route('/search', methods=['GET', 'POST'])
 
 def search():
     # getting input with name = fname in HTML form
     search_text = request.form.get("searchInput")
-    list_frames =  search_frames(search_text)
+    objects = search_frames(search_text)
     #video = os.listdir('static/video_frames')
-    return render_template('search.html', frames_list=list_frames)
+    return render_template('search.html', frames_list=objects, search_txt=search_text)
 		
 if __name__ == '__main__':
-    app.run(host='localhost', debug=True)
+    app.run(port=5002, debug=True)
 
